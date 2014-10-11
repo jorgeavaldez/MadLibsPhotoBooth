@@ -1,5 +1,6 @@
 import string
 
+#Change path to wherever it is locally
 namesFile = open(r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\NameStripper\talknames.txt", "r", errors="ignore")
 
 for line in namesFile:
