@@ -27,7 +27,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NameStripper\talknames.txt" />
+    <Content Include="NameStripper\talknames.txt">
+      <Publish>True</Publish>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NameStripper\" />
