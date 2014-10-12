@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52757fa3-dad4-42b2-b215-a1fa2b9e0f93</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>NameStripper\NameStripper.py</StartupFile>
+    <StartupFile>NameStripper\TitleTagger.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,17 +22,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NameStripper\NameStripper.py">
+    <Compile Include="NameStripper\TitleTagger.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NameStripper\Title.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NameStripper\talknames.txt">
-      <Publish>True</Publish>
-    </Content>
+    <Folder Include="NameStripper\" />
+    <Folder Include="NameStripper\Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NameStripper\" />
+    <Content Include="NameStripper\Resources\formattednames.txt" />
+    <Content Include="NameStripper\Resources\taggednames.txt" />
+    <Content Include="NameStripper\Resources\talknames.txt" />
+    <Content Include="NameStripper\Resources\titles.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
