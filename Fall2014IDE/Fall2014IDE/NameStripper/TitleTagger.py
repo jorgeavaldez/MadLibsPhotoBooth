@@ -77,3 +77,5 @@ for line in formattedNames:
         json.dump(title, jsonFile, default=convert_to_builtin_type, sort_keys=True, indent=4)
 
 print("DONE!!!")
+
+#http://pymotw.com/2/json/
