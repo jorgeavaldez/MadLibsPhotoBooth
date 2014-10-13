@@ -68,6 +68,7 @@ def redrawBackground(background, screen, POS):
 
         drawWords(background, screen, phrases)
 
+
 def main():    
     pygame.init()
 
@@ -80,6 +81,12 @@ def main():
     background.fill((0, 0, 0))
 
     redrawBackground(background, screen, "WAITING FOR SERVER")
+
+    client = ServerClient("localhost", 9998)
+    client.setBackground(background)
+    client.setScreen(screen)
+    client.setMessage("R")
+    asyncore.loop()
 
     with picamera.PiCamera() as camera:
 
@@ -100,9 +107,7 @@ def main():
         picNum = 0
 
         while 1:
-            data, addr = sock.recvfrom(1024)
-            if not data: redrawBackground(background, screen, "WAITING FOR SERVER")
-            else: redrawBackground(background, screen, data)
+            pos = client.getPOS()
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -127,3 +132,40 @@ def main():
             pygame.display.flip()
 
 if __name__ == '__main__': main()
+
+class ServerClient(asyncore.dispatcher):
+    """Sends messages to the server and receives responses."""
+    
+    def __init__(self, host, port, chunk_size=512):
+        self.received_data = []
+        self.chunk_size = chunk_size
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connect((host, port))
+        return
+    
+    def handle_close(self):
+        self.close()
+        return
+    
+    def writable(self):
+        return bool(self.to_send)
+
+    def handle_write(self):
+        sent = self.send(self.message)
+
+    def handle_read(self):
+        data = self.recv(self.chunk_size)
+        self.received_data.append(data)
+
+    def setMessage(self, message):
+        self.message = message
+
+    def getPOS(self):
+        return self.received_data.pop()
+
+    def setBackground(self, bg):
+        self.bg = bg
+
+    def setScreen(self, scr):
+        self.scr = scr

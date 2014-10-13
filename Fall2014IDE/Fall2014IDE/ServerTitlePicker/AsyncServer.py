@@ -14,7 +14,7 @@ class Server(asyncore.dispatcher):
         self.bind(address)
         self.address = self.socket.getsockname()
         self.handlers = []
-        self.listen(1)
+        self.listen(4)
         self.titlePicker = titlePicker
         self.handlersIndex = 0
         return
@@ -99,16 +99,8 @@ class Client(asyncore.dispatcher):
         self.connect((host, port))
         return
     
-    
     def handle_close(self):
         self.close()
-        received_message = ''.join(self.received_data)
-        if received_message == self.message:
-            print('RECEIVED COPY OF MESSAGE\n')
-        else:
-            print('ERROR IN TRANSMISSION\n')
-            print('EXPECTED "%s"\n', self.message)
-            print('RECEIVED "%s"\n', received_message)
         return
     
     def writable(self):
@@ -122,7 +114,13 @@ class Client(asyncore.dispatcher):
         data = self.recv(self.chunk_size)
         self.received_data.append(data)
 
-def main():
+    def setMessage(self, message):
+        self.message = message
+
+    def getData(self):
+        return self.received_data.pop()
+
+if __name__ == "__main__":
     #Main method for the server client on the main computer
     rasp1address = ("localhost", 0)
     shelfname = "titles"
