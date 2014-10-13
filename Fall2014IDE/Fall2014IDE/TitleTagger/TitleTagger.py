@@ -1,27 +1,33 @@
-from Title import Title
 from textblob import TextBlob
 import string
-import json
+import pickle
+import shelve
 import io
+
+class Title(object):
+    """Title Abstraction"""
+
+    def __init__(self, rTitle, fTitle, posList):
+        self.rawTitle = rTitle
+        self.formatTitle = fTitle
+        self.posList = posList
+
+    def __str__(self):
+        result = "RAW TITLE: {0}\n".format(self.rawTitle)
+        result += "FORMAT TITLE: {0}\n".format(self.formatTitle)
+        result += "POS LIST: {0}".format(self.posList)
+
+        return result
 
 #Change path to wherever it is locally
 formattedNames = open(r"D:\Github\Fall2014IDE\Resources\formattednames.txt", "r")
 taggedNames = open(r"D:\Github\Fall2014IDE\Resources\taggednames.txt", "w")
-jsonFile = open(r"D:\Github\Fall2014IDE\Resources\titles.json", "w")
 
-#Makes any object json writable
-def convert_to_builtin_type(obj):
-    jsonFile.writelines('default(' + repr(obj) + ')')
-
-    # Convert objects to a dictionary of their representation
-    d = { '__class__':obj.__class__.__name__, 
-          '__module__':obj.__module__,
-          }
-    d.update(obj.__dict__)
-    return d
+titleshelf = shelve.open("titles")
 
 print("Processing...")
 
+i = 0
 for line in formattedNames:
     reformattedline = ""
     titlePOSList = []
@@ -74,7 +80,10 @@ for line in formattedNames:
     
     if (len(titlePOSList) == 4):
         title = Title(line.replace("\n", ""), reformattedline, titlePOSList)
-        json.dump(title, jsonFile, default=convert_to_builtin_type, sort_keys=True, indent=4)
+        titleshelf[str(i)] = title
+
+        i += 1
+        
 
 print("DONE!!!")
 

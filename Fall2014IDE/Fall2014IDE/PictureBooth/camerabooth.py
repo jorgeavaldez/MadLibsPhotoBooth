@@ -2,6 +2,20 @@ import pygame
 import time
 from pygame.locals import *
 import picamera
+from os.path import expanduser, join
+import os
+import socket
+import asyncore
+
+""" Socket Stuff"""
+UDP_IP = "192.168.1.104"
+UDP_PORT = 9998
+
+sock = socket.socket(socket.AF_INET , socket.SOCK_DGRAM)
+
+sock.bind((UDP_IP, UDP_PORT))
+
+"""End socket stuff"""
 
 def drawWords(background, screen, phrases, timed=False):
     pygame.font.init()
@@ -24,7 +38,8 @@ def drawWords(background, screen, phrases, timed=False):
             factor += 0.75
             screen.blit(background, (0, 0))
             pygame.display.flip()
-            time.sleep(1)
+            if word is not "STAY STILL!!!":
+                time.sleep(1)
         
         else:
             text = pygame.transform.rotate(font.render(word, True, (255, 255, 255)), 90)
@@ -38,7 +53,10 @@ def drawWords(background, screen, phrases, timed=False):
     screen.blit(background, (0, 0))
     pygame.display.flip()
 
-def redrawBackground(background, screen):
+def redrawBackground(background, screen, POS):
+        background.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
+        
         previewBox = Rect(100, 100, 1000, 840)
         previewBox.centery = background.get_rect().centery
         pygame.draw.rect(background, (255, 255, 255), previewBox)
@@ -46,7 +64,7 @@ def redrawBackground(background, screen):
         pygame.font.init()
         font = pygame.font.Font("kalinga.ttf", 64)
 
-        phrases = ["Hello there!", "How are you?", "Press SPACE to take a picture!", "Have a good day!!!"]
+        phrases = ["Hello there!", POS, "Press SPACE to take a picture!", "Have a good day!!!"]
 
         drawWords(background, screen, phrases)
 
@@ -61,9 +79,10 @@ def main():
     background = background.convert()
     background.fill((0, 0, 0))
 
-    redrawBackground(background, screen)
+    redrawBackground(background, screen, "WAITING FOR SERVER")
 
     with picamera.PiCamera() as camera:
+
         camera.resolution = (1000, 800)
         camera.vflip = True
         camera.rotation = 90
@@ -71,7 +90,9 @@ def main():
         camera.start_preview()
 
         camera.preview.fullscreen = False
+
         camera.preview.window = (172, 40, 1000, 1000)
+
         #camera.preview.rotation = 270
         #camera.preview.vflip = True
         #camera.preview.hflip = True
@@ -79,6 +100,10 @@ def main():
         picNum = 0
 
         while 1:
+            data, addr = sock.recvfrom(1024)
+            if not data: redrawBackground(background, screen, "WAITING FOR SERVER")
+            else: redrawBackground(background, screen, data)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     camera.stop_preview()
@@ -88,15 +113,14 @@ def main():
                     camera.stop_preview()
                     return
 
-                if event.type == KEYDOWN and event.key == K_SPACE:
+                if event.type == KEYDOWN and event.key == K_SPACE and data:
                     background.fill((255, 255, 255))
                     screen.blit(background, (0, 0))
                     drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
                     pygame.display.flip()
-                    camera.capture("picture{0}.jpg".format(picNum), resize=(500, 500))
+                    camera.capture("Images/picture{0}.jpg".format(picNum), resize=(268, 225))
                     #time.sleep(0.05)
                     background.fill((0, 0, 0))
-                    redrawBackground(background, screen)
                     picNum += 1
 
             screen.blit(background, (0, 0))

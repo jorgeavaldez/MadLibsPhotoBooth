@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52757fa3-dad4-42b2-b215-a1fa2b9e0f93</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PiBoothGui\camerabooth.py</StartupFile>
+    <StartupFile>AsyncServer\AsyncServer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,26 +22,39 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PiBoothGui\camerabooth.py">
+    <Compile Include="AsyncServer\AsyncServer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PictureBooth\camerabooth.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PictureManipulation\PictureOverlay.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TitlePicker\TitlePicker.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TitleTagger\TitleTagger.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TitleTagger\Title.py">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PiBoothGui\" />
+    <Folder Include="AsyncServer\" />
+    <Folder Include="PictureManipulation\" />
+    <Folder Include="PictureManipulation\Template Images\" />
+    <Folder Include="TitlePicker\" />
+    <Folder Include="PictureBooth\" />
+    <Folder Include="TitlePicker\Resources\" />
     <Folder Include="TitleTagger\" />
     <Folder Include="TitleTagger\Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PictureManipulation\Template Images\tedx2014template.png" />
+    <Content Include="PictureManipulation\Template Images\tedx2014template.svg" />
     <Content Include="TitleTagger\Resources\formattednames.txt" />
     <Content Include="TitleTagger\Resources\taggednames.txt" />
     <Content Include="TitleTagger\Resources\talknames.txt" />
-    <Content Include="TitleTagger\Resources\titles.json" />
+    <Content Include="TitlePicker\Resources\titles.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
