@@ -1,9 +1,55 @@
 import pygame
-import os
 import time
 from pygame.locals import *
-from subprocess import Popen
- 
+import picamera
+
+def drawWords(background, screen, phrases, timed=False):
+    pygame.font.init()
+
+    if timed: 
+        factor = 2.0
+        font = pygame.font.Font("kalinga.ttf", 126)
+    
+    else: 
+        factor = 4
+        font = pygame.font.Font("kalinga.ttf", 64)
+
+    for word in phrases:
+        if timed:
+            text = pygame.transform.rotate(font.render(word, True, (255, 0, 0)), 90)
+            textpos = text.get_rect()
+            textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
+            textpos.centery = background.get_rect().centery
+            background.blit(text, textpos)
+            factor += 0.75
+            screen.blit(background, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
+        
+        else:
+            text = pygame.transform.rotate(font.render(word, True, (255, 255, 255)), 90)
+            textpos = text.get_rect()
+            textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
+            textpos.centery = background.get_rect().centery
+            background.blit(text, textpos)
+            factor += 1
+            #background.blit(text, (100, 100))
+
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
+
+def redrawBackground(background, screen):
+        previewBox = Rect(100, 100, 1000, 840)
+        previewBox.centery = background.get_rect().centery
+        pygame.draw.rect(background, (255, 255, 255), previewBox)
+
+        pygame.font.init()
+        font = pygame.font.Font("kalinga.ttf", 64)
+
+        phrases = ["Hello there!", "How are you?", "Press SPACE to take a picture!", "Have a good day!!!"]
+
+        drawWords(background, screen, phrases)
+
 def main():    
     pygame.init()
 
@@ -15,43 +61,45 @@ def main():
     background = background.convert()
     background.fill((0, 0, 0))
 
-    previewBox = Rect(100, 100, 1000, 850)
-    previewBox.centery = background.get_rect().centery
-    pygame.draw.rect(background, (255, 255, 255), previewBox)
+    redrawBackground(background, screen)
 
-    pygame.font.init()
-    font = pygame.font.Font("kalinga.ttf", 64)
-    words = ["Hello there!", "How are you?", "Have a good day!!!", "RECT: {0}, {1}".format(previewBox.x, previewBox.y)]
+    with picamera.PiCamera() as camera:
+        camera.resolution = (1000, 800)
+        camera.vflip = True
+        camera.rotation = 90
 
-    factor = 3
-    for word in words:
-        text = pygame.transform.rotate(font.render(word, True, (255, 255, 255)), 90)
-        textpos = text.get_rect()
-        textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
-        textpos.centery = background.get_rect().centery
-        background.blit(text, textpos)
-        factor += 1
-        #background.blit(text, (100, 100))
+        camera.start_preview()
 
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
+        camera.preview.fullscreen = False
+        camera.preview.window = (172, 40, 1000, 1000)
+        #camera.preview.rotation = 270
+        #camera.preview.vflip = True
+        #camera.preview.hflip = True
 
-    while 1:
-        p = Popen(["watch", "raspistill -rot 270 -vf -hf -p '51, 100, 1000, 850'"])
+        picNum = 0
 
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                return
+        while 1:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    camera.stop_preview()
+                    return
 
-            if event.type == KEYDOWN and event.key == K_ESCAPE:
-                p.terminate()
-                return
+                if event.type == KEYDOWN and event.key == K_ESCAPE:
+                    camera.stop_preview()
+                    return
 
-            if event.type == KEYDOWN and event.key == K_SPACE:
-                p.terminate()
-                os.system("raspistill -vf -hf -rot 270 -p '51, 100, 1000, 850'-w 1000 -h 850 -o picture1.jpg")
+                if event.type == KEYDOWN and event.key == K_SPACE:
+                    background.fill((255, 255, 255))
+                    screen.blit(background, (0, 0))
+                    drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
+                    pygame.display.flip()
+                    camera.capture("picture{0}.jpg".format(picNum), resize=(500, 500))
+                    #time.sleep(0.05)
+                    background.fill((0, 0, 0))
+                    redrawBackground(background, screen)
+                    picNum += 1
 
-        screen.blit(background, (0, 0))
-        pygame.display.flip()
+            screen.blit(background, (0, 0))
+            pygame.display.flip()
 
 if __name__ == '__main__': main()
