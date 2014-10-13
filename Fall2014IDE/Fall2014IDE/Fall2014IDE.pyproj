@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52757fa3-dad4-42b2-b215-a1fa2b9e0f93</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>NameStripper\TitleTagger.py</StartupFile>
+    <StartupFile>PiBoothGui\camerabooth.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,22 +22,26 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NameStripper\TitleTagger.py">
+    <Compile Include="PiBoothGui\camerabooth.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="NameStripper\Title.py">
+    <Compile Include="TitleTagger\TitleTagger.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TitleTagger\Title.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NameStripper\" />
-    <Folder Include="NameStripper\Resources\" />
+    <Folder Include="PiBoothGui\" />
+    <Folder Include="TitleTagger\" />
+    <Folder Include="TitleTagger\Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NameStripper\Resources\formattednames.txt" />
-    <Content Include="NameStripper\Resources\taggednames.txt" />
-    <Content Include="NameStripper\Resources\talknames.txt" />
-    <Content Include="NameStripper\Resources\titles.json" />
+    <Content Include="TitleTagger\Resources\formattednames.txt" />
+    <Content Include="TitleTagger\Resources\taggednames.txt" />
+    <Content Include="TitleTagger\Resources\talknames.txt" />
+    <Content Include="TitleTagger\Resources\titles.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
