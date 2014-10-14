@@ -6,16 +6,7 @@ from os.path import expanduser, join
 import os
 import socket
 import asyncore
-
-""" Socket Stuff"""
-UDP_IP = "192.168.1.104"
-UDP_PORT = 9998
-
-sock = socket.socket(socket.AF_INET , socket.SOCK_DGRAM)
-
-sock.bind((UDP_IP, UDP_PORT))
-
-"""End socket stuff"""
+import re
 
 def drawWords(background, screen, phrases, timed=False):
     pygame.font.init()
@@ -68,7 +59,6 @@ def redrawBackground(background, screen, POS):
 
         drawWords(background, screen, phrases)
 
-
 def main():    
     pygame.init()
 
@@ -82,16 +72,11 @@ def main():
 
     redrawBackground(background, screen, "WAITING FOR SERVER")
 
-    client = ServerClient("localhost", 9998)
-    client.setBackground(background)
-    client.setScreen(screen)
-    client.setMessage("R")
-    asyncore.loop()
-
     with picamera.PiCamera() as camera:
 
         camera.resolution = (1000, 800)
         camera.vflip = True
+        camera.hflip = True
         camera.rotation = 90
 
         camera.start_preview()
@@ -106,9 +91,7 @@ def main():
 
         picNum = 0
 
-        while 1:
-            pos = client.getPOS()
-
+        while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     camera.stop_preview()
@@ -118,7 +101,7 @@ def main():
                     camera.stop_preview()
                     return
 
-                if event.type == KEYDOWN and event.key == K_SPACE and data:
+                if event.type == KEYDOWN and event.key == K_SPACE:
                     background.fill((255, 255, 255))
                     screen.blit(background, (0, 0))
                     drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
@@ -129,43 +112,7 @@ def main():
                     picNum += 1
 
             screen.blit(background, (0, 0))
+            redrawBackground(background, screen, pos)
             pygame.display.flip()
 
 if __name__ == '__main__': main()
-
-class ServerClient(asyncore.dispatcher):
-    """Sends messages to the server and receives responses."""
-    
-    def __init__(self, host, port, chunk_size=512):
-        self.received_data = []
-        self.chunk_size = chunk_size
-        asyncore.dispatcher.__init__(self)
-        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connect((host, port))
-        return
-    
-    def handle_close(self):
-        self.close()
-        return
-    
-    def writable(self):
-        return bool(self.to_send)
-
-    def handle_write(self):
-        sent = self.send(self.message)
-
-    def handle_read(self):
-        data = self.recv(self.chunk_size)
-        self.received_data.append(data)
-
-    def setMessage(self, message):
-        self.message = message
-
-    def getPOS(self):
-        return self.received_data.pop()
-
-    def setBackground(self, bg):
-        self.bg = bg
-
-    def setScreen(self, scr):
-        self.scr = scr

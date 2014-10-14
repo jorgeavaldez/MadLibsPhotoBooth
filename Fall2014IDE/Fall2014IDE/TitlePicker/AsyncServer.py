@@ -1,8 +1,10 @@
 import asyncore
+import socket
 import logging
 import string
 import re
 import TitlePicker
+from TitlePicker import Title
 
 class Server(asyncore.dispatcher):
     """Receives connections and establishes handlers for each client.
@@ -14,7 +16,7 @@ class Server(asyncore.dispatcher):
         self.bind(address)
         self.address = self.socket.getsockname()
         self.handlers = []
-        self.listen(4)
+        self.listen(1)
         self.titlePicker = titlePicker
         self.handlersIndex = 0
         return
@@ -26,14 +28,16 @@ class Server(asyncore.dispatcher):
         self.handlers.append(Handler(self, client_info[0], self.handlersIndex, self.titlePicker))
         self.handlersIndex += 1
         
-        if len(self.handlersIndex) >= 4:
+        if self.handlersIndex >= 1:
             self.handle_close()
 
         return
     
     def handle_close(self):
-        self.close()
         return
+
+    def serve_forever(self):
+        asyncore.loop()
 
 class Handler(asyncore.dispatcher):
     """Handles echoing messages from a single client.
@@ -56,25 +60,33 @@ class Handler(asyncore.dispatcher):
 
     
     def handle_write(self):
-        data = self.data_to_send.pop()
-        sent = self.send(data)
+        if self.ready:
+            data = self.data_to_send.pop()
+            sent = self.send(str(data))
 
-        if sent < len(data):
-            remaining = data[sent:]
-            self.data_to_send.append(remaining)
+            print(sent)
+
+            if sent < len(data):
+                remaining = data[sent:]
+                self.data_to_send.append(remaining)
         
-        if not self.writable():
-            self.handle_close()
+            if not self.writable():
+                self.handle_close()
 
     def handle_read(self):
         """Read an incoming message from the client and put it into our outgoing queue."""
         data = self.recv(self.chunk_size)
         
         """We want to ensure the Pis are ready"""
-
-        if re.match("R-.*", data):
+        if data:
             self.ready = True
-            self.data_to_send.append(titlePicker.getCurrentTitle().posList[self.index])
+
+        else:
+            self.ready = False
+        
+        self.data_to_send.append(self.titlePicker.getCurrentTitle().posList[self.index])
+        self.titlePicker.updateTitle()
+        #self.data_to_send.append("N")
 
     
     def handle_close(self):
@@ -120,15 +132,16 @@ class Client(asyncore.dispatcher):
     def getData(self):
         return self.received_data.pop()
 
-if __name__ == "__main__":
+def main():
     #Main method for the server client on the main computer
-    rasp1address = ("localhost", 0)
+    rasp1address = ("JJ202-PC03", 9998)
     shelfname = "titles"
 
-    server = Server(rasp1address, TitlePicker(shelfname))
+    print(type(Server))
 
-    ip, port = server.address
+    server1 = Server(rasp1address, TitlePicker.TitlePicker(shelfname))
     
-    client = Client(ip, port, "R", 1024)
+    print(server1.address)
+    server1.serve_forever()
 
-    asyncore.loop()
+if __name__ == '__main__': main()
