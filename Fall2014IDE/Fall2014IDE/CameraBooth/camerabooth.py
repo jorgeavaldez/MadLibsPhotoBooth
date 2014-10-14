@@ -8,6 +8,29 @@ import socket
 import asyncore
 import re
 
+#THIS PI'S NUMBER. THIS DETERMINES THE FILE THAT'S READ FROM AND
+#THE ORDER PICTURES ARE PUT ON THE FINAL IMAGE
+PI_NUMBER = 1
+
+def partOfSpeech(POS):
+    if (POS == "N"):
+        return "a noun"
+
+    elif (POS == "V"):
+        return "a verb"
+
+    elif (POS == "PN"):
+        return "a proper noun"
+
+    elif (POS == "ADV"):
+        return "an adverb"
+
+    elif (POS == "ADJ"):
+        return "an adjective"
+
+    else:
+        return "INVALID INPUT"
+
 def drawWords(background, screen, phrases, timed=False):
     pygame.font.init()
 
@@ -55,12 +78,15 @@ def redrawBackground(background, screen, POS):
         pygame.font.init()
         font = pygame.font.Font("kalinga.ttf", 64)
 
-        phrases = ["Hello there!", POS, "Press SPACE to take a picture!", "Have a good day!!!"]
+        phrases = ["Welcome to TEDxSMU 2014!", "", "Please write {0} on the".format(partOfSpeech(POS)), "whiteboard, and then press", "the button to take a picture!"]
 
         drawWords(background, screen, phrases)
 
 def main():    
     pygame.init()
+
+    with open("rasp{0}list.txt".format(PI_NUMBER), "r") as file:
+        posList = [line.strip() for line in file]
 
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
@@ -70,7 +96,9 @@ def main():
     background = background.convert()
     background.fill((0, 0, 0))
 
-    redrawBackground(background, screen, "WAITING FOR SERVER")
+    picNum = 0
+
+    redrawBackground(background, screen, posList[picNum])
 
     with picamera.PiCamera() as camera:
 
@@ -89,8 +117,6 @@ def main():
         #camera.preview.vflip = True
         #camera.preview.hflip = True
 
-        picNum = 0
-
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -106,13 +132,13 @@ def main():
                     screen.blit(background, (0, 0))
                     drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
                     pygame.display.flip()
-                    camera.capture("Images/picture{0}.jpg".format(picNum), resize=(268, 225))
+                    camera.capture("Images/IMG{0}.jpg".format(picNum), resize=(268, 225))
                     #time.sleep(0.05)
                     background.fill((0, 0, 0))
                     picNum += 1
 
             screen.blit(background, (0, 0))
-            redrawBackground(background, screen, pos)
+            redrawBackground(background, screen, posList[picNum])
             pygame.display.flip()
 
 if __name__ == '__main__': main()

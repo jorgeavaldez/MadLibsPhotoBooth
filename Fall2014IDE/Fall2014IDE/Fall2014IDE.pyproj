@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52757fa3-dad4-42b2-b215-a1fa2b9e0f93</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TitlePicker\TitlePicker.py</StartupFile>
+    <StartupFile>PictureManipulation\PictureOverlay.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,13 +22,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TitlePicker\AsyncServer.py">
+    <Compile Include="PictureManipulation\PictureOverlay.py" />
+    <Compile Include="TitlePicker\Old\AsyncServer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CameraBooth\camerabooth.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PictureManipulation\PictureOverlay.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TitlePicker\TitlePicker.py">
@@ -39,15 +37,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CameraBooth\POS Lists\" />
     <Folder Include="PictureManipulation\" />
+    <Folder Include="PictureManipulation\Input Images\" />
+    <Folder Include="PictureManipulation\Output Images\" />
+    <Folder Include="PictureManipulation\Resources\" />
     <Folder Include="PictureManipulation\Template Images\" />
     <Folder Include="TitlePicker\" />
     <Folder Include="CameraBooth\" />
+    <Folder Include="TitlePicker\Old\" />
     <Folder Include="TitlePicker\Resources\" />
     <Folder Include="TitleTagger\" />
     <Folder Include="TitleTagger\Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CameraBooth\POS Lists\rasp1list.txt" />
+    <Content Include="CameraBooth\POS Lists\rasp2list.txt" />
+    <Content Include="CameraBooth\POS Lists\rasp3list.txt" />
+    <Content Include="CameraBooth\POS Lists\rasp4list.txt" />
+    <Content Include="PictureManipulation\Input Images\picture0.jpg" />
+    <Content Include="PictureManipulation\Input Images\picture1.jpg" />
+    <Content Include="PictureManipulation\Input Images\picture2.jpg" />
+    <Content Include="PictureManipulation\Input Images\picture3.jpg" />
+    <Content Include="PictureManipulation\Input Images\picture4.jpg" />
+    <Content Include="PictureManipulation\Output Images\TEST1.png" />
+    <Content Include="PictureManipulation\Resources\helvetica-neue-thin-1361522098.ttf" />
+    <Content Include="PictureManipulation\Resources\tedx2014template.png" />
+    <Content Include="PictureManipulation\Resources\tedx2014template.svg" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.png" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.svg" />
     <Content Include="TitleTagger\Resources\formattednames.txt" />
