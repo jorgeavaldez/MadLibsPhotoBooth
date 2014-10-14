@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52757fa3-dad4-42b2-b215-a1fa2b9e0f93</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>AsyncServer\AsyncServer.py</StartupFile>
+    <StartupFile>TitlePicker\TitlePicker.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,10 +22,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AsyncServer\AsyncServer.py">
+    <Compile Include="TitlePicker\AsyncServer.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PictureBooth\camerabooth.py">
+    <Compile Include="CameraBooth\camerabooth.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PictureManipulation\PictureOverlay.py">
@@ -39,11 +39,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AsyncServer\" />
     <Folder Include="PictureManipulation\" />
     <Folder Include="PictureManipulation\Template Images\" />
     <Folder Include="TitlePicker\" />
-    <Folder Include="PictureBooth\" />
+    <Folder Include="CameraBooth\" />
     <Folder Include="TitlePicker\Resources\" />
     <Folder Include="TitleTagger\" />
     <Folder Include="TitleTagger\Resources\" />

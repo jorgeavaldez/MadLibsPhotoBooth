@@ -38,5 +38,32 @@ class TitlePicker(object):
     def getCurrentTitle(self):
         return self.titles[self.index]
 
-    def updateTitle(self):
-        self.index = (self.index + 1) % len(self.titles)
+def main():
+    picker = TitlePicker("titles")
+
+    rasp1List = open("rasp1list.txt", "w")
+    rasp2List = open("rasp2list.txt", "w")
+    rasp3List = open("rasp3list.txt", "w")
+    rasp4List = open("rasp4list.txt", "w")
+
+    for i in range(len(picker.titles)):
+        title = picker.titles[i]
+
+        print("Opened title: " + str(title) + "\n")
+        posList = title.posList
+
+        rasp1List.writelines(posList[0] + "\n")
+        print("Wrote {0} to {1}".format(posList[0], "rasp1List"))
+
+        rasp2List.writelines(posList[1] + "\n")
+        print("Wrote {0} to {1}".format(posList[1], "rasp2List"))
+
+        rasp3List.writelines(posList[2] + "\n")
+        print("Wrote {0} to {1}".format(posList[2], "rasp3List"))
+
+        rasp4List.writelines(posList[3] + "\n")
+        print("Wrote {0} to {1}".format(posList[3], "rasp4List"))
+
+        print("\n")
+
+if __name__ == "__main__": main()
