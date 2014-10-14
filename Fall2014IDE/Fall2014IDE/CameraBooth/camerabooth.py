@@ -12,21 +12,24 @@ import re
 #THE ORDER PICTURES ARE PUT ON THE FINAL IMAGE
 PI_NUMBER = 1
 
+#The path to where the picture should go
+IMG_OUT = "Images/img" + str(PI_NUMBER) + "_{0}{1}.jpg"
+
 def partOfSpeech(POS):
     if (POS == "N"):
-        return "a noun"
+        return "a NOUN"
 
     elif (POS == "V"):
-        return "a verb"
+        return "a VERB"
 
     elif (POS == "PN"):
-        return "a proper noun"
+        return "a PROPER NOUN"
 
     elif (POS == "ADV"):
-        return "an adverb"
+        return "an ADVERB"
 
     elif (POS == "ADJ"):
-        return "an adjective"
+        return "an ADJECTIVE"
 
     else:
         return "INVALID INPUT"
@@ -36,12 +39,13 @@ def drawWords(background, screen, phrases, timed=False):
 
     if timed: 
         factor = 2.0
-        font = pygame.font.Font("kalinga.ttf", 126)
+        font = pygame.font.Font("helvetica-neue-thin.ttf", 126)
     
     else: 
-        factor = 4
-        font = pygame.font.Font("kalinga.ttf", 64)
+        factor = 4.5
+        font = pygame.font.Font("helvetica-neue-thin.ttf", 64)
 
+    i = 0
     for word in phrases:
         if timed:
             text = pygame.transform.rotate(font.render(word, True, (255, 0, 0)), 90)
@@ -49,20 +53,32 @@ def drawWords(background, screen, phrases, timed=False):
             textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
             textpos.centery = background.get_rect().centery
             background.blit(text, textpos)
-            factor += 0.75
+            factor += 1
             screen.blit(background, (0, 0))
             pygame.display.flip()
+
             if word is not "STAY STILL!!!":
                 time.sleep(1)
         
         else:
-            text = pygame.transform.rotate(font.render(word, True, (255, 255, 255)), 90)
-            textpos = text.get_rect()
-            textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
-            textpos.centery = background.get_rect().centery
-            background.blit(text, textpos)
-            factor += 1
+            if i == 2:
+                text = pygame.transform.rotate(font.render(word, True, (255, 0, 0)), 90)
+                textpos = text.get_rect()
+                textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
+                textpos.centery = background.get_rect().centery
+                background.blit(text, textpos)
+
+            else:
+                text = pygame.transform.rotate(font.render(word, True, (255, 255, 255)), 90)
+                textpos = text.get_rect()
+                textpos.centerx = background.get_rect().centerx + factor * text.get_rect().width
+                textpos.centery = background.get_rect().centery
+                background.blit(text, textpos)
+
+            factor += 1.2
             #background.blit(text, (100, 100))
+
+        i += 1
 
     screen.blit(background, (0, 0))
     pygame.display.flip()
@@ -76,9 +92,9 @@ def redrawBackground(background, screen, POS):
         pygame.draw.rect(background, (255, 255, 255), previewBox)
 
         pygame.font.init()
-        font = pygame.font.Font("kalinga.ttf", 64)
+        font = pygame.font.Font("helvetica-neue-thin.ttf", 64)
 
-        phrases = ["Welcome to TEDxSMU 2014!", "", "Please write {0} on the".format(partOfSpeech(POS)), "whiteboard, and then press", "the button to take a picture!"]
+        phrases = ["Welcome to TEDxSMU 2014!", "Please write", "{0}".format(partOfSpeech(POS)), "on the whiteboard, and then", "press the button to", "take a picture!"]
 
         drawWords(background, screen, phrases)
 
@@ -132,10 +148,13 @@ def main():
                     screen.blit(background, (0, 0))
                     drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
                     pygame.display.flip()
-                    camera.capture("Images/IMG{0}.jpg".format(picNum), resize=(268, 225))
+                    camera.capture(IMG_OUT.format(posList[picNum], "%04d"%(picNum)), resize=(268, 225))
                     #time.sleep(0.05)
                     background.fill((0, 0, 0))
                     picNum += 1
+
+                    if picNum == len(posList):
+                        picNum = 0
 
             screen.blit(background, (0, 0))
             redrawBackground(background, screen, posList[picNum])

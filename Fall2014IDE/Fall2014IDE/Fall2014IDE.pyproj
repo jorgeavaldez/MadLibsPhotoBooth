@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PictureManipulation\PictureOverlay.py" />
+    <Compile Include="PictureManipulation\TitlePicker.py" />
     <Compile Include="TitlePicker\Old\AsyncServer.py">
       <SubType>Code</SubType>
     </Compile>
