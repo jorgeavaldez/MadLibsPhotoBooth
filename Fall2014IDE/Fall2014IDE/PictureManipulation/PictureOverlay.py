@@ -216,7 +216,7 @@ if __name__ == "__main__":
     pygame.init()
 
     infoObject = pygame.display.Info()
-    screen = pygame.display.set_mode((1400, 900), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1366, 768), pygame.FULLSCREEN)
     pygame.display.set_caption('TV Coolness')
     background = pygame.Surface(screen.get_size())
     background = background.convert()
@@ -231,6 +231,7 @@ if __name__ == "__main__":
         imgout(picker.titles[i].formatTitle, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, (TEST_IMG_OUT_PATH%i))
         print("RENDERING TITLE NUMBER %04d\n"%i)
         background = pygame.image.load(TEST_IMG_OUT_PATH%i)
+        background = pygame.transform.scale(background, (1366, 768))
         
         imageRect = background.get_rect()
 
