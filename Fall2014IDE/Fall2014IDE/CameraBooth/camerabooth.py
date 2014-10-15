@@ -6,7 +6,11 @@ from os.path import expanduser, join
 import os
 import socket
 import asyncore
-import re
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+CAMERA_BUTTON = 8
 
 #THIS PI'S NUMBER. THIS DETERMINES THE FILE THAT'S READ FROM AND
 #THE ORDER PICTURES ARE PUT ON THE FINAL IMAGE
@@ -101,6 +105,8 @@ def redrawBackground(background, screen, POS):
 def main():    
     pygame.init()
 
+    GPIO.setup(CAMERA_BUTTON, GPIO.IN)  #big red button
+
     with open("rasp{0}list.txt".format(PI_NUMBER), "r") as file:
         posList = [line.strip() for line in file]
 
@@ -143,7 +149,7 @@ def main():
                     camera.stop_preview()
                     return
 
-                if event.type == KEYDOWN and event.key == K_SPACE:
+                if GPIO.input(8): #event.type == KEYDOWN and event.key == K_SPACE:
                     background.fill((255, 255, 255))
                     screen.blit(background, (0, 0))
                     drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
@@ -152,7 +158,7 @@ def main():
                     #time.sleep(0.05)
                     background.fill((0, 0, 0))
                     picNum += 1
-
+                    
                     if picNum == len(posList):
                         picNum = 0
 
