@@ -106,7 +106,7 @@ def main():
 
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
-    pygame.display.set_caption('Basic Pygame Test')
+    pygame.display.set_caption('Camera Booth')
 
     background = pygame.Surface(screen.get_size())
     background = background.convert()

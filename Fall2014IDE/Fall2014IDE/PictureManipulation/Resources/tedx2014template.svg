@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="tedx2014template.svg">
+   sodipodi:docname="tedx2014template.png"
+   inkscape:export-filename="D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Resources\tedx2014template.png"
+   inkscape:export-xdpi="50"
+   inkscape:export-ydpi="50">
   <defs
      id="defs4">
     <mask
@@ -38,7 +41,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="877.30234"
+     inkscape:cx="826.15867"
      inkscape:cy="505.59605"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -57,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -76,84 +79,15 @@
        width="486.37567" />
     <text
        xml:space="preserve"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:150%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:HelveticaNeue;-inkscape-font-specification:HelveticaNeue"
-       x="708.4729"
-       y="292.36218"
-       id="text4162"
-       sodipodi:linespacing="150%"><tspan
-         sodipodi:role="line"
-         x="708.4729"
-         y="292.36218"
-         style="font-size:100px;text-align:center;line-height:150%;text-anchor:middle"
-         id="tspan4168">How                       changed</tspan><tspan
-         sodipodi:role="line"
-         x="722.34009"
-         y="442.36218"
-         id="tspan4166"
-         style="font-size:100px;text-align:center;line-height:150%;text-anchor:middle">the            of          </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="761.25305"
-       y="977.13806"
-       id="text4136"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4138"
-         x="761.25305"
-         y="977.13806"
-         style="font-size:72px">@</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:84px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
-       x="1242.2333"
-       y="938.17303"
-       id="text4136-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4138-5"
-         x="1242.2333"
-         y="938.17303"
-         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Helvetica Neue;-inkscape-font-specification:Helvetica Neue">2014</tspan></text>
-    <rect
-       style="fill:#a20000;fill-opacity:0;stroke:#db3034;stroke-width:2.16954899;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
-       id="rect3988-4-1"
-       width="260.3786"
-       height="126.70509"
-       x="336.02609"
-       y="194.72392" />
-    <rect
-       style="fill:#a20000;fill-opacity:0;stroke:#db3034;stroke-width:2.16954899;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
-       id="rect3988-4-1-7"
-       width="260.3786"
-       height="126.70509"
-       x="631.23926"
-       y="194.72392" />
-    <rect
-       style="fill:#a20000;fill-opacity:0;stroke:#db3034;stroke-width:2.16954899;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
-       id="rect3988-4-1-7-1"
-       width="260.3786"
-       height="126.70509"
-       x="481.23929"
-       y="347.58105" />
-    <rect
-       style="fill:#a20000;fill-opacity:0;stroke:#db3034;stroke-width:2.16954899;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
-       id="rect3988-4-1-7-15"
-       width="260.3786"
-       height="126.70509"
-       x="878.38214"
-       y="347.58105" />
-    <text
-       xml:space="preserve"
        style="font-size:64px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="479.74609"
-       y="598.64789"
+       y="652.64789"
        id="text4254"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4256"
          x="479.74609"
-         y="598.64789"
+         y="652.64789"
          style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Permanent Marker;-inkscape-font-specification:Permanent Marker">presented by</tspan></text>
   </g>
 </svg>

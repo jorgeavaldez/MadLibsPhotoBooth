@@ -5,6 +5,8 @@ import os
 import time
 from TitlePicker import TitlePicker
 from TitlePicker import Title
+import pygame
+from pygame.locals import *
 
 # program creates final image when raw images are all available
 
@@ -211,8 +213,35 @@ def main():
 
 #checks for new file in directory to draw
 if __name__ == "__main__":
+    pygame.init()
+
+    infoObject = pygame.display.Info()
+    screen = pygame.display.set_mode((1400, 900), pygame.FULLSCREEN)
+    pygame.display.set_caption('TV Coolness')
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((255, 255, 255))
+
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
+
     picker = TitlePicker("titles")
 
     for i in range(len(picker.titles)):
         imgout(picker.titles[i].formatTitle, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, (TEST_IMG_OUT_PATH%i))
         print("RENDERING TITLE NUMBER %04d\n"%i)
+        background = pygame.image.load(TEST_IMG_OUT_PATH%i)
+        
+        imageRect = background.get_rect()
+
+        screen.blit(background, screen.get_rect())
+        pygame.display.flip()
+        time.sleep(5)
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == KEYDOWN and event.key == K_ESCAPE:
+                break
