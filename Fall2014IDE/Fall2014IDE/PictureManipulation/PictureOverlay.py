@@ -16,7 +16,7 @@ FONT_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\
 TEST_IMG_IN_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Input Images\IMG0.jpg"
 TEST_IMG_OUT_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Output Images\TEST%04d.png"
 
-def imgout(textIn, pi1, pi2, pi3, pi4, pictureOut):
+def generatePicture(textIn, pi1, pi2, pi3, pi4, pictureOut):
 
 	#opens all input imgs
     originPic1 = Image.open(pi1)
@@ -200,7 +200,7 @@ def main():
         if (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4)):
                 imgOut = TEST_IMG_OUT_PATH%picIndex
 
-                imgout(titles[picIndex], newImagesPi1[picIndex], newImagesPi2[pixIndex], newImagesPi3[picIndex], newImagesPi4[picIndex], imgOut)
+                generatePicture(titles[picIndex], newImagesPi1[picIndex], newImagesPi2[pixIndex], newImagesPi3[picIndex], newImagesPi4[picIndex], imgOut)
 
                 picIndex += 1
 
@@ -228,7 +228,7 @@ if __name__ == "__main__":
     picker = TitlePicker("titles")
 
     for i in range(len(picker.titles)):
-        imgout(picker.titles[i].formatTitle, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, (TEST_IMG_OUT_PATH%i))
+        generatePicture(picker.titles[i].formatTitle, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, TEST_IMG_IN_PATH, (TEST_IMG_OUT_PATH%i))
         print("RENDERING TITLE NUMBER %04d\n"%i)
         background = pygame.image.load(TEST_IMG_OUT_PATH%i)
         background = pygame.transform.scale(background, (1366, 768))
