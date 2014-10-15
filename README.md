@@ -21,7 +21,8 @@ match the schema it expects. When it gets one picture from each Pi, it'll
 generate the Mad Libs title picture and display it for 2 mins and 30 secs
 before it listens and generates the next one if the files exist.
 
-Both modules require PyGame.
+Both modules require PyGame and Python 2.7
+Should run on Python 3+, but I haven't tested it, so run at your own risk.
 
 This repository contains Visual Studio 2013 project and solution files.
 It also contains tools I wrote to make this easier, and tools I meant to 
