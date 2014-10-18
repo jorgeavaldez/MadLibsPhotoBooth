@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GPIOTest\ButtonTest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PictureManipulation\PictureOverlay.py" />
     <Compile Include="PictureManipulation\TitlePicker.py" />
     <Compile Include="TitlePicker\Old\AsyncServer.py">
@@ -39,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CameraBooth\POS Lists\" />
+    <Folder Include="GPIOTest\" />
     <Folder Include="PictureManipulation\" />
     <Folder Include="PictureManipulation\Input Images\" />
     <Folder Include="PictureManipulation\Output Images\" />
@@ -67,6 +71,7 @@
     <Content Include="PictureManipulation\Resources\tedx2014template.svg" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.png" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.svg" />
+    <Content Include="CameraBooth\Raspberry-Pi-UInput-Build-Instructions.txt" />
     <Content Include="TitleTagger\Resources\formattednames.txt" />
     <Content Include="TitleTagger\Resources\taggednames.txt" />
     <Content Include="TitleTagger\Resources\talknames.txt" />

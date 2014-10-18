@@ -7,6 +7,7 @@ import os
 import socket
 import asyncore
 import RPi.GPIO as GPIO
+import uinput
 
 CAMERA_BUTTON_IN = 40
 CAMERA_BUTTON_OUT = 38
@@ -104,11 +105,9 @@ def redrawBackground(background, screen, POS):
 def main():    
     pygame.init()
 
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
 
-    GPIO.setup(38, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-
-    GPIO.setup(40, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+    GPIO.setup(40, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
     with open("rasp{0}list.txt".format(PI_NUMBER), "r") as file:
         posList = [line.strip() for line in file]
@@ -142,20 +141,12 @@ def main():
         #camera.preview.vflip = True
         #camera.preview.hflip = True
 
-        def buttonCallback():
-            background.fill((255, 255, 255))
-            screen.blit(background, (0, 0))
-            drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
-            pygame.display.flip()
-            camera.capture(IMG_OUT.format(posList[picNum], "%04d"%(picNum)), resize=(268, 225))
-            #time.sleep(0.05)
-            background.fill((0, 0, 0))
-            picNum += 1
-                    
-            if picNum == len(posList):
-                picNum = 0
+        ui = uinput.Device([uinput.KEY_SPACE])
 
-        GPIO.add_event_detect(38, GPIO.RISING, callback=buttonCallback, bouncetime=300)
+        def pressesSpace(channel):
+            ui.emit_click(uinput.KEY_SPACE)
+
+        GPIO.add_event_detect(40, GPIO.BOTH, callback=pressesSpace, bouncetime=300)
 
         while True:
             for event in pygame.event.get():
@@ -170,7 +161,18 @@ def main():
                 #I like to assume this is where the button callback would occur
                 #I kinda just set it in a different thread
 
-                #event.type == KEYDOWN and event.key == K_SPACE:            
+                if event.type == KEYDOWN and event.key == K_SPACE:
+                    background.fill((255, 255, 255))
+                    screen.blit(background, (0, 0))
+                    drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
+                    pygame.display.flip()
+                    camera.capture(IMG_OUT.format(posList[picNum], "%04d"%(picNum)), resize=(268, 225))
+                    #time.sleep(0.05)
+                    background.fill((0, 0, 0))
+                    picNum += 1
+                    
+                    if picNum == len(posList):
+                        picNum = 0      
 
             screen.blit(background, (0, 0))
             redrawBackground(background, screen, posList[picNum])

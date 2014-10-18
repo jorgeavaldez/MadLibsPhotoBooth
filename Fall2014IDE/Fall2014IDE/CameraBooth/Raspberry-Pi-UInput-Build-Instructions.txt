@@ -1,0 +1,12 @@
+First, you have to install python-dev with
+	sudo apt-get install python-dev
+
+Then you have to install libudev-dev tools
+
+Run the other command
+
+Then run
+	sudo pip install python-uinput
+
+If you get any shit, you might have to install
+python-dev
