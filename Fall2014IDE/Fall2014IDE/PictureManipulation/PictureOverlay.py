@@ -10,11 +10,11 @@ from pygame.locals import *
 
 # program creates final image when raw images are all available
 
-TEMPLATE_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Resources\tedx2014template.png"
-FONT_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Resources\helvetica-neue-thin.ttf"
+TEMPLATE_PATH = r"Resources\tedx2014template.png"
+FONT_PATH = r"Resources\helvetica-neue-thin.ttf"
 
-TEST_IMG_IN_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Input Images\IMG0.jpg"
-TEST_IMG_OUT_PATH = r"D:\Github\Fall2014IDE\Fall2014IDE\Fall2014IDE\PictureManipulation\Output Images\TEST%04d.png"
+TEST_IMG_IN_PATH = r"Input Images\IMG0.jpg"
+TEST_IMG_OUT_PATH = r"Output Images\TEST%04d.png"
 
 def generatePicture(textIn, pi1, pi2, pi3, pi4, pictureOut):
 
