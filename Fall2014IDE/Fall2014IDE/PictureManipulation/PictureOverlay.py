@@ -141,6 +141,21 @@ def generatePicture(textIn, pi1, pi2, pi3, pi4, pictureOut):
     template.save(pictureOut)
 
 def main():
+
+    #Pygame init shit
+    pygame.init()
+
+    infoObject = pygame.display.Info()
+    screen = pygame.display.set_mode((1366, 768), pygame.FULLSCREEN)
+    pygame.display.set_caption('TV Coolness')
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((255, 255, 255))
+
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
+
+    #Begin picking out the correct titles
     picker = TitlePicker("titles")
     titles = picker.titles
 
@@ -198,16 +213,33 @@ def main():
                     newImagesPi4.append(file)
 
         if (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4)):
-                imgOut = TEST_IMG_OUT_PATH%picIndex
+            imgOut = TEST_IMG_OUT_PATH%picIndex
 
-                generatePicture(titles[picIndex], newImagesPi1[picIndex], newImagesPi2[pixIndex], newImagesPi3[picIndex], newImagesPi4[picIndex], imgOut)
+            generatePicture(titles[picIndex], newImagesPi1[picIndex], newImagesPi2[pixIndex], newImagesPi3[picIndex], newImagesPi4[picIndex], imgOut)
 
-                picIndex += 1
+            background = pygame.image.load(imgOut)
+            background = pygame.transform.scale(background, (1366, 768))
+        
+            imageRect = background.get_rect()
 
-                if picIndex == len(titles):
-                    picIndex = 0
+            screen.blit(background, screen.get_rect())
+            pygame.display.flip()
+            time.sleep(5)
+                
+            picIndex += 1
+
+            if picIndex == len(titles):
+                picIndex = 0
 
                 # TODO: Here's where we display the image on the TV
+            
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == KEYDOWN and event.key == K_ESCAPE:
+                break
 
         before = after
 
