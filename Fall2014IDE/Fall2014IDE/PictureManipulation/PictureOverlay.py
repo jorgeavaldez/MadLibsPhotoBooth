@@ -159,6 +159,9 @@ def main():
     picker = TitlePicker("titles")
     titles = picker.titles
 
+    #Just to make sure
+    #print(titles)
+
     picIndex = 0
 
     watchDirectoryPi1 = r"\\RPIONE\pihome\CameraBooth\Images"
@@ -177,48 +180,47 @@ def main():
     newImagesPi4 = []
 
     while True:
-        time.sleep(10)
-
         afterPi1 = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
-        addedPi1 = [file for file in after if not file in beforePi1]
-        removedPi1 = [file for file in before if not file in afterPi1]
+        addedPi1 = [file for file in afterPi1 if not file in beforePi1]
+        removedPi1 = [file for file in beforePi1 if not file in afterPi1]
 
         afterPi2 = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
-        addedPi2 = [file for file in after if not file in beforePi2]
-        removedPi2 = [file for file in before if not file in afterPi2]
+        addedPi2 = [file for file in afterPi2 if not file in beforePi2]
+        removedPi2 = [file for file in beforePi2 if not file in afterPi2]
 
         afterPi3 = dict ([(file, None) for file in os.listdir (watchDirectoryPi3)])
-        addedPi3 = [file for file in after if not file in beforePi3]
-        removedPi3 = [file for file in before if not file in afterPi3]
+        addedPi3 = [file for file in afterPi3 if not file in beforePi3]
+        removedPi3 = [file for file in beforePi3 if not file in afterPi3]
 
         afterPi4 = dict ([(file, None) for file in os.listdir (watchDirectoryPi4)])
-        addedPi4 = [file for file in after if not file in beforePi4]
-        removedPi4 = [file for file in before if not file in afterPi4]
+        addedPi4 = [file for file in afterPi4 if not file in beforePi4]
+        removedPi4 = [file for file in beforePi4 if not file in afterPi4]
 
         if addedPi1:
-            for file in added:
+            for file in addedPi1:
                 if "img1" in str(file):
                     newImagesPi1.append(file)
 
         if addedPi2:
-            for file in added:
+            for file in addedPi2:
                 if "img2" in str(file):
                     newImagesPi2.append(file)
 
         if addedPi3:
-            for file in added:
+            for file in addedPi3:
                 if "img3" in str(file):
                     newImagesPi3.append(file)
 
         if addedPi4:
-            for file in added:
-                if "img3" in str(file):
+            for file in addedPi4:
+                if "img4" in str(file):
                     newImagesPi4.append(file)
 
-        if (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4)):
+        if ((picIndex < len(titles)) and (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4))):
             imgOut = TEST_IMG_OUT_PATH%picIndex
 
-            generatePicture(titles[picIndex], newImagesPi1[picIndex], newImagesPi2[pixIndex], newImagesPi3[picIndex], newImagesPi4[picIndex], imgOut)
+            print (imgOut)
+            generatePicture(titles[picIndex], os.path.join(watchDirectoryPi1, newImagesPi1[picIndex]), os.path.join(watchDirectoryPi2, newImagesPi2[picIndex]), os.path.join(watchDirectoryPi3, newImagesPi3[picIndex]), os.path.join(watchDirectoryPi4, newImagesPi4[picIndex]), imgOut)
 
             background = pygame.image.load(imgOut)
             background = pygame.transform.scale(background, (1366, 768))
@@ -242,7 +244,10 @@ def main():
             if event.type == KEYDOWN and event.key == K_ESCAPE:
                 break
 
-        before = after
+        beforePi1 = afterPi1
+        beforePi2 = afterPi2
+        beforePi3 = afterPi3
+        beforePi4 = afterPi4
 
 #checks for new file in directory to draw
 if __name__ == "__main__": main()
