@@ -201,25 +201,25 @@ def main():
             for file in addedPi1:
                 if "img1" in str(file):
                     newImagesPi1.append(file)
-                    shutil.copyfile(os.path.join(watchDirectoryPi1, file), os.path.join("Images In", file))
+                    shutil.copy(os.path.join(watchDirectoryPi1, file), os.path.join("Images In", file))
 
         if addedPi2:
             for file in addedPi2:
                 if "img2" in str(file):
                     newImagesPi2.append(file)
-                    shutil.copyfile(os.path.join(watchDirectoryPi2, file), os.path.join("Images In", file))
+                    shutil.copy(os.path.join(watchDirectoryPi2, file), os.path.join("Images In", file))
 
         if addedPi3:
             for file in addedPi3:
                 if "img3" in str(file):
                     newImagesPi3.append(file)
-                    shutil.copyfile(os.path.join(watchDirectoryPi3, file), os.path.join("Images In", file))
+                    shutil.copy(os.path.join(watchDirectoryPi3, file), os.path.join("Images In", file))
 
         if addedPi4:
             for file in addedPi4:
                 if "img4" in str(file):
                     newImagesPi4.append(file)
-                    shutil.copyfile(os.path.join(watchDirectoryPi4, file), os.path.join("Images In", file))
+                    shutil.copy(os.path.join(watchDirectoryPi4, file), os.path.join("Images In", file))
 
         if ((picIndex < len(titles)) and (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4))):
             imgOut = TEST_IMG_OUT_PATH%picIndex
