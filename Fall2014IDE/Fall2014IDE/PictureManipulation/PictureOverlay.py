@@ -225,7 +225,7 @@ def main():
             imgOut = TEST_IMG_OUT_PATH%picIndex
 
             print (imgOut)
-            generatePicture(titles[picIndex], os.path.join("Images In", newImagesPi1[picIndex]), os.path.join("Images In", newImagesPi2[picIndex]), os.path.join("Images In", newImagesPi3[picIndex]), os.path.join("Images In", newImagesPi4[picIndex]), imgOut)
+            generatePicture(titles[picIndex], os.path.join(watchDirectoryPi1, newImagesPi1[picIndex]), os.path.join(watchDirectoryPi2, newImagesPi2[picIndex]), os.path.join(watchDirectoryPi3, newImagesPi3[picIndex]), os.path.join(watchDirectoryPi4, newImagesPi4[picIndex]), imgOut)
 
             background = pygame.image.load(imgOut)
             background = pygame.transform.scale(background, (1366, 768))
