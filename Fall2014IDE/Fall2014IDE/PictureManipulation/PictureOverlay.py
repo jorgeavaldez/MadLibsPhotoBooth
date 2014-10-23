@@ -161,7 +161,10 @@ def main():
 
     picIndex = 0
 
-    watchDirectoryPi1 = r"\\RASPBERRYPI\pihome\CameraBooth\Images"
+    watchDirectoryPi1 = r"\\RASPBERRYPI1\pihome\CameraBooth\Images"
+    watchDirectoryPi2 = r"\\RASPBERRYPI2\pihome\CameraBooth\Images"
+    watchDirectoryPi3 = r"\\RASPBERRYPI3\pihome\CameraBooth\Images"
+    watchDirectoryPi4 = r"\\RASPBERRYPI4\pihome\CameraBooth\Images"
 
     beforePi1 = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
     beforePi2 = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
@@ -230,8 +233,6 @@ def main():
 
             if picIndex == len(titles):
                 picIndex = 0
-
-                # TODO: Here's where we display the image on the TV
             
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -244,7 +245,11 @@ def main():
         before = after
 
 #checks for new file in directory to draw
-if __name__ == "__main__":
+if __name__ == "__main__": main()
+
+#Old test main method
+def test():
+
     pygame.init()
 
     infoObject = pygame.display.Info()
