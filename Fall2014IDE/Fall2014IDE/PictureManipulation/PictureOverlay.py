@@ -161,10 +161,10 @@ def main():
 
     picIndex = 0
 
-    watchDirectoryPi1 = r"\\RASPBERRYPI1\pihome\CameraBooth\Images"
-    watchDirectoryPi2 = r"\\RASPBERRYPI2\pihome\CameraBooth\Images"
-    watchDirectoryPi3 = r"\\RASPBERRYPI3\pihome\CameraBooth\Images"
-    watchDirectoryPi4 = r"\\RASPBERRYPI4\pihome\CameraBooth\Images"
+    watchDirectoryPi1 = r"\\RPIONE\pihome\CameraBooth\Images"
+    watchDirectoryPi2 = r"\\RPITWO\pihome\CameraBooth\Images"
+    watchDirectoryPi3 = r"\\RPITHREE\pihome\CameraBooth\Images"
+    watchDirectoryPi4 = r"\\RPIFOUR\pihome\CameraBooth\Images"
 
     beforePi1 = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
     beforePi2 = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
