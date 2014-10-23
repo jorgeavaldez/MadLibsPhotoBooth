@@ -225,6 +225,7 @@ def main():
             imgOut = TEST_IMG_OUT_PATH%picIndex
 
             print (imgOut)
+            time.sleep(5)
             generatePicture(titles[picIndex], os.path.join(watchDirectoryPi1, newImagesPi1[picIndex]), os.path.join(watchDirectoryPi2, newImagesPi2[picIndex]), os.path.join(watchDirectoryPi3, newImagesPi3[picIndex]), os.path.join(watchDirectoryPi4, newImagesPi4[picIndex]), imgOut)
 
             background = pygame.image.load(imgOut)
