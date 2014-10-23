@@ -126,6 +126,7 @@ def generatePicture(textIn, pi1, pi2, pi3, pi4, pictureOut):
 
             template.paste(wordPics[wordPicsIndex], (currX, (currY - (129 - 93)/2)))
             currX += 263
+            wordPicsIndex += 1
     #Person 1
     template.paste(head1, (143, 550))
 
