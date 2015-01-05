@@ -25,8 +25,13 @@
     <Compile Include="GPIOTest\ButtonTest.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PictureManipulation\DirTest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PictureManipulation\PictureOverlay.py" />
     <Compile Include="PictureManipulation\TitlePicker.py" />
+    <Compile Include="PlanBPictureManipulation\PlanBPictureOverlay.py" />
+    <Compile Include="PlanBPictureManipulation\TitlePicker.py" />
     <Compile Include="TitlePicker\Old\AsyncServer.py">
       <SubType>Code</SubType>
     </Compile>
@@ -43,11 +48,13 @@
   <ItemGroup>
     <Folder Include="CameraBooth\POS Lists\" />
     <Folder Include="GPIOTest\" />
+    <Folder Include="PlanBPictureManipulation\" />
     <Folder Include="PictureManipulation\" />
     <Folder Include="PictureManipulation\Input Images\" />
     <Folder Include="PictureManipulation\Output Images\" />
     <Folder Include="PictureManipulation\Resources\" />
     <Folder Include="PictureManipulation\Template Images\" />
+    <Folder Include="PlanBPictureManipulation\Resources\" />
     <Folder Include="TitlePicker\" />
     <Folder Include="CameraBooth\" />
     <Folder Include="TitlePicker\Old\" />
@@ -66,12 +73,15 @@
     <Content Include="PictureManipulation\Input Images\picture3.jpg" />
     <Content Include="PictureManipulation\Input Images\picture4.jpg" />
     <Content Include="PictureManipulation\Output Images\TEST1.png" />
-    <Content Include="PictureManipulation\Resources\helvetica-neue-thin-1361522098.ttf" />
+    <Content Include="PictureManipulation\Resources\helvetica-neue-thin.ttf" />
     <Content Include="PictureManipulation\Resources\tedx2014template.png" />
     <Content Include="PictureManipulation\Resources\tedx2014template.svg" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.png" />
     <Content Include="PictureManipulation\Template Images\tedx2014template.svg" />
     <Content Include="CameraBooth\Raspberry-Pi-UInput-Build-Instructions.txt" />
+    <Content Include="PlanBPictureManipulation\Resources\helvetica-neue-thin.ttf" />
+    <Content Include="PlanBPictureManipulation\Resources\tedx2014template.png" />
+    <Content Include="PlanBPictureManipulation\Resources\tedx2014template.svg" />
     <Content Include="TitleTagger\Resources\formattednames.txt" />
     <Content Include="TitleTagger\Resources\taggednames.txt" />
     <Content Include="TitleTagger\Resources\talknames.txt" />

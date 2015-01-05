@@ -171,67 +171,23 @@ def main():
     watchDirectoryPi3 = r"X:\CameraBooth\Images"
     watchDirectoryPi4 = r"W:\CameraBooth\Images"
 
-    beforePi1 = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
-    beforePi2 = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
-    beforePi3 = dict ([(file, None) for file in os.listdir (watchDirectoryPi3)])
-    beforePi4 = dict ([(file, None) for file in os.listdir (watchDirectoryPi4)])
+    pi1ImagesIn = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
+    pi2ImagesIn = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
+    pi3ImagesIn = dict ([(file, None) for file in os.listdir (watchDirectoryPi3)])
+    pi4ImagesIn = dict ([(file, None) for file in os.listdir (watchDirectoryPi4)])
 
-    newImagesPi1 = beforePi1
-    newImagesPi2 = beforePi2
-    newImagesPi3 = beforePi3
-    newImagesPi4 = beforePi4
+    for i in range(len(titles)):
 
-    while True:
-        afterPi1 = dict ([(file, None) for file in os.listdir (watchDirectoryPi1)])
-        addedPi1 = [file for file in afterPi1 if not file in beforePi1]
-        #removedPi1 = [file for file in beforePi1 if not file in afterPi1]
-
-        afterPi2 = dict ([(file, None) for file in os.listdir (watchDirectoryPi2)])
-        addedPi2 = [file for file in afterPi2 if not file in beforePi2]
-        #removedPi2 = [file for file in beforePi2 if not file in afterPi2]
-
-        afterPi3 = dict ([(file, None) for file in os.listdir (watchDirectoryPi3)])
-        addedPi3 = [file for file in afterPi3 if not file in beforePi3]
-        #removedPi3 = [file for file in beforePi3 if not file in afterPi3]
-
-        afterPi4 = dict ([(file, None) for file in os.listdir (watchDirectoryPi4)])
-        addedPi4 = [file for file in afterPi4 if not file in beforePi4]
-        #removedPi4 = [file for file in beforePi4 if not file in afterPi4]
-
-        if addedPi1:
-            for file in addedPi1:
-                if "img1" in str(file):
-                    newImagesPi1.append(file)
-                    #shutil.copy2(os.path.join(watchDirectoryPi1, file), os.path.join("Images In", file))
-
-        if addedPi2:
-            for file in addedPi2:
-                if "img2" in str(file):
-                    newImagesPi2.append(file)
-                    #shutil.copy2(os.path.join(watchDirectoryPi2, file), os.path.join("Images In", file))
-
-        if addedPi3:
-            for file in addedPi3:
-                if "img3" in str(file):
-                    newImagesPi3.append(file)
-                    #shutil.copy2(os.path.join(watchDirectoryPi3, file), os.path.join("Images In", file))
-
-        if addedPi4:
-            for file in addedPi4:
-                if "img4" in str(file):
-                    newImagesPi4.append(file)
-                    #shutil.copy2(os.path.join(watchDirectoryPi4, file), os.path.join("Images In", file))
-
-        if ((picIndex < len(titles)) and (picIndex < len(newImagesPi1)) and (picIndex < len(newImagesPi2)) and (picIndex < len(newImagesPi3)) and (picIndex < len(newImagesPi4))):
+        if ((picIndex < len(titles)) and (picIndex < len(pi1ImagesIn)) and (picIndex < len(pi2ImagesIn)) and (picIndex < len(pi3ImagesIn)) and (picIndex < len(pi4ImagesIn))):
             imgOut = TEST_IMG_OUT_PATH%picIndex
 
-            print (imgOut)
+            print(imgOut)
             time.sleep(5)
 
             rasp1formatname = "1_{0}{1}.jpg".format(titles[picIndex].posList[0], "%04d"%(picIndex))
-            rasp2formatname = "1_{0}{1}.jpg".format(titles[picIndex].posList[1], "%04d"%(picIndex))
-            rasp3formatname = "1_{0}{1}.jpg".format(titles[picIndex].posList[2], "%04d"%(picIndex))
-            rasp4formatname = "1_{0}{1}.jpg".format(titles[picIndex].posList[3], "%04d"%(picIndex))
+            rasp2formatname = "2_{0}{1}.jpg".format(titles[picIndex].posList[1], "%04d"%(picIndex))
+            rasp3formatname = "3_{0}{1}.jpg".format(titles[picIndex].posList[2], "%04d"%(picIndex))
+            rasp4formatname = "4_{0}{1}.jpg".format(titles[picIndex].posList[3], "%04d"%(picIndex))
 
             generatePicture(titles[picIndex].formatTitle, os.path.join(watchDirectoryPi1, rasp1formatname), os.path.join(watchDirectoryPi2, rasp2formatname), os.path.join(watchDirectoryPi3, rasp3formatname), os.path.join(watchDirectoryPi4, rasp4formatname), imgOut)
 
@@ -256,11 +212,6 @@ def main():
 
             if event.type == KEYDOWN and event.key == K_ESCAPE:
                 break
-
-        beforePi1 = afterPi1
-        beforePi2 = afterPi2
-        beforePi3 = afterPi3
-        beforePi4 = afterPi4
 
 #checks for new file in directory to draw
 if __name__ == "__main__": main()

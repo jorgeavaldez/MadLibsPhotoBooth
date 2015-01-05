@@ -124,6 +124,8 @@ def main():
 
     redrawBackground(background, screen, posList[picNum])
 
+    dt = time.time();
+
     with picamera.PiCamera() as camera:
 
         camera.resolution = (1000, 800)
@@ -162,17 +164,21 @@ def main():
                 #I kinda just set it in a different thread
 
                 if event.type == KEYDOWN and event.key == K_SPACE:
-                    background.fill((255, 255, 255))
-                    screen.blit(background, (0, 0))
-                    drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
-                    pygame.display.flip()
-                    camera.capture(IMG_OUT.format(posList[picNum], "%04d"%(picNum)), resize=(268, 225))
-                    #time.sleep(0.05)
-                    background.fill((0, 0, 0))
-                    picNum += 1
+
+                    if (time.time() - dt) > 15: 
+                        background.fill((255, 255, 255))
+                        screen.blit(background, (0, 0))
+                        drawWords(background, screen, ["3", "2", "1", "STAY STILL!!!"], True)
+                        pygame.display.flip()
+                        camera.capture(IMG_OUT.format(posList[picNum], "%04d"%(picNum)), resize=(268, 225))
+                        #time.sleep(0.05)
+                        background.fill((0, 0, 0))
+                        picNum += 1
                     
-                    if picNum == len(posList):
-                        picNum = 0      
+                        if picNum == len(posList):
+                            picNum = 0   
+                            
+                        dt = time.time();   
 
             screen.blit(background, (0, 0))
             redrawBackground(background, screen, posList[picNum])
